@@ -29,7 +29,7 @@ public class Block {
     @Setter
     @OneToOne
     @JoinColumn(name = "sendImage")
-    private FileData 					sendImage;
+    private FileModel 					sendImage;
 
 
 

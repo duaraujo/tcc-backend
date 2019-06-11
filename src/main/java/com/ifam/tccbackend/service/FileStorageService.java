@@ -1,12 +1,10 @@
 package com.ifam.tccbackend.service;
 
 import com.ifam.tccbackend.PropertiesFile.FileStorageProperties;
-import com.ifam.tccbackend.dto.FileDTO;
 import com.ifam.tccbackend.dto.FileModelDTO;
 import com.ifam.tccbackend.model.FileModel;
 import com.ifam.tccbackend.model.FileStorageException;
 import com.ifam.tccbackend.model.MyFileNotFoundException;
-import com.ifam.tccbackend.repository.IFile;
 import com.ifam.tccbackend.repository.IFileModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;

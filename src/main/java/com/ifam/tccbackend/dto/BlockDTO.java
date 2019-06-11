@@ -14,7 +14,7 @@ public class BlockDTO {
     @Getter
     @Setter
     @JsonProperty("sendImage")
-    private 	FileDTO							sendImage;
+    private 	FileModelDTO							sendImage;
 
     public BlockDTO() {
         super();
