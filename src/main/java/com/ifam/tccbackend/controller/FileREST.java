@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-@RequestMapping("/rest/file")
+@RequestMapping("/reste/file")
 @RestController
 public class FileREST {
     private final FileService service;

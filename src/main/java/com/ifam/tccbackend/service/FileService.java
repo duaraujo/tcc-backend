@@ -57,7 +57,6 @@ public class FileService {
         return null;
     }
 
-
     private File getNewFile(String ext) throws IOException {
         if(ext == null || ext.trim().isEmpty()) {
             ext = ".dat";
