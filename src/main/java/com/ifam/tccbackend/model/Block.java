@@ -1,6 +1,7 @@
 package com.ifam.tccbackend.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -11,6 +12,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
+@NoArgsConstructor
 public class Block {
 
     @Getter
@@ -18,7 +20,7 @@ public class Block {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private		long		id;
+    private		long		                id;
 
     @Getter
     @Setter
@@ -45,10 +47,7 @@ public class Block {
     @Setter
     @OneToOne
     @JoinColumn(name = "sendImage")
-    private FileModel 					sendImage;
-
-    public Block() {
-    }
+    private FileModel    					sendImage;
 
     public Block(String name, int floor, Double rating, String height, FileModel sendImage) {
         this.name = name;
@@ -57,4 +56,5 @@ public class Block {
         this.height = height;
         this.sendImage = sendImage;
     }
+
 }

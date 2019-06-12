@@ -62,7 +62,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--Security-->
+        <!--Security-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
@@ -78,7 +78,7 @@
             <version>${spring-security-jwt.version}</version>
         </dependency>
 
-        <!--Security-->
+        -Security-->
     </dependencies>
 
     <build>

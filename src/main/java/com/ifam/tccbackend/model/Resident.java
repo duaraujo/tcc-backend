@@ -1,6 +1,7 @@
 package com.ifam.tccbackend.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
+@NoArgsConstructor
 public class Resident {
 
     @Getter
@@ -27,7 +29,15 @@ public class Resident {
 
     @Getter
     @Setter
-    private 	String						sexo;
+    private 	String						email;
+
+    @Getter
+    @Setter
+    private 	String						gender;
+
+    @Getter
+    @Setter
+    private 	String						phone;
 
     @Getter
     @Setter
@@ -43,4 +53,13 @@ public class Resident {
     @OneToMany
     private     List<FileModel>             gallery;
 
+    public Resident(String name, String email, String gender, String phone, Date dataNasc, Apartment apartment, List<FileModel> gallery) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.phone = phone;
+        this.dataNasc = dataNasc;
+        this.apartment = apartment;
+        this.gallery = gallery;
+    }
 }

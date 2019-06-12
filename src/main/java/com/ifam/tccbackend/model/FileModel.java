@@ -23,13 +23,16 @@ public class FileModel {
     @Setter
     @Column(name = "name", nullable = false)
     private     String      name;
+
     @Getter
     @Setter
     @Column(name = "path")
     private     String      path;
+
     @Getter
     @Setter
     private     String      type;
+
     @Getter
     @Setter
     private     long        size;

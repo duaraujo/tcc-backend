@@ -2,6 +2,7 @@ package com.ifam.tccbackend.model;
 
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
@@ -12,6 +13,7 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
+@NoArgsConstructor
 public class Apartment {
 
     @Getter
@@ -33,7 +35,7 @@ public class Apartment {
     @Getter
     @Setter
     @OneToMany
-    private List<Resident>                   residents;
+    private     List<Resident>              residents;
 
     @Getter
     @Setter
@@ -41,4 +43,10 @@ public class Apartment {
     @JoinColumn(name = "sendImage")
     private     FileModel 		   			 sendImage;
 
+    public Apartment(String number, Block block, List<Resident> residents, FileModel sendImage) {
+        this.number = number;
+        this.block = block;
+        this.residents = residents;
+        this.sendImage = sendImage;
+    }
 }
