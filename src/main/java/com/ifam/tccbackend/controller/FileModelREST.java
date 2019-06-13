@@ -2,7 +2,7 @@ package com.ifam.tccbackend.controller;
 
 import com.ifam.tccbackend.dto.FileModelDTO;
 import com.ifam.tccbackend.model.FileModel;
-import com.ifam.tccbackend.service.FileStorageService;
+import com.ifam.tccbackend.service.FileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class FileModelREST {
     private static final Logger logger = LoggerFactory.getLogger(FileModelREST.class);
 
     @Autowired
-    private FileStorageService fileStorageService;
+    private FileService fileService;
 
     @PostMapping
     public FileModelDTO upload(@RequestParam("file") MultipartFile file) {
-        String fileName = fileStorageService.storeFile(file);
+        String fileName = fileService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/")
@@ -39,7 +39,7 @@ public class FileModelREST {
                 .toUriString();
         FileModel fileModel = new FileModel(fileName, fileDownloadUri, file.getContentType(), file.getSize());
 
-        return fileStorageService.writeFile(fileModel);
+        return fileService.writeFile(fileModel);
     }
 
     @PostMapping("/uploadMultipleFiles")
@@ -54,9 +54,9 @@ public class FileModelREST {
     @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
     public ResponseEntity<Resource> downloadFile(@PathVariable Long id, HttpServletRequest request) {
 
-        String fileName = fileStorageService.findOne(id).getName();
+        String fileName = fileService.findOne(id).getName();
         // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
+        Resource resource = fileService.loadFileAsResource(fileName);
 
         // Try to determine file's content type
         String contentType = null;
@@ -76,7 +76,5 @@ public class FileModelREST {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
-
-
 
 }

@@ -1,54 +1,55 @@
 package com.ifam.tccbackend.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ifam.tccbackend.model.FileModel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FileModelDTO {
 
     @Getter
     @Setter
-    @JsonProperty(value="id")
-    private		long		id;
+    @JsonProperty(value = "id")
+    private long id;
     @Getter
     @Setter
-    @JsonProperty(value="name")
+    @JsonProperty(value = "name")
     private String name;
     @Getter
     @Setter
-    @JsonProperty(value="path")
+    @JsonProperty(value = "path")
     private String path;
     @Getter
     @Setter
-    @JsonProperty(value="type")
+    @JsonProperty(value = "type")
     private String type;
     @Getter
     @Setter
-    @JsonProperty(value="size")
+    @JsonProperty(value = "size")
     private long size;
 
 
-    public FileModelDTO() {
-        super();
-    }
-
     public FileModelDTO(FileModel entity) {
-        id			= entity.getId();
-        path		= entity.getPath();
-        name		= entity.getName();
-        type	    = entity.getType();
-        size        = entity.getSize();
+        id = entity.getId();
+        path = entity.getPath();
+        name = entity.getName();
+        type = entity.getType();
+        size = entity.getSize();
     }
 
     @JsonIgnore
-    public FileModelDTO getModel() {
-        FileModelDTO model = new FileModelDTO();
-        model.setId(id);
-        model.setName(name);
-        model.setType(type);
-        model.setPath(path);
+    public FileModel modelToDto() {
+        FileModel model = new FileModel();
+        model.setId(this.id);
+        model.setName(this.name);
+        model.setType(this.type);
+        model.setPath(this.path);
+        model.setSize(this.size);
         return model;
     }
 

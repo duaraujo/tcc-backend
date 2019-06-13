@@ -1,5 +1,7 @@
 package com.ifam.tccbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +16,7 @@ import java.util.List;
 @DynamicUpdate
 @DynamicInsert
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Resident {
 
     @Getter
@@ -21,37 +24,38 @@ public class Resident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private		long		                id;
+    private long id;
 
     @Getter
     @Setter
-    private 	String						name;
+    private String name;
 
     @Getter
     @Setter
-    private 	String						email;
+    private String email;
 
     @Getter
     @Setter
-    private 	String						gender;
+    private String gender;
 
     @Getter
     @Setter
-    private 	String						phone;
+    private String phone;
 
     @Getter
     @Setter
-    private     Date                        dataNasc;
+    private Date dataNasc;
 
     @Getter
     @Setter
-    @ManyToOne
-    private     Apartment                   apartment;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JsonIgnore
+    private Apartment apartment;
 
     @Getter
     @Setter
     @OneToMany
-    private     List<FileModel>             gallery;
+    private List<FileModel> gallery;
 
     public Resident(String name, String email, String gender, String phone, Date dataNasc, Apartment apartment, List<FileModel> gallery) {
         this.name = name;

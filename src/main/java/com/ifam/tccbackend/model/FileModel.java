@@ -1,5 +1,6 @@
 package com.ifam.tccbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,31 +12,32 @@ import javax.persistence.*;
 @Entity
 @DynamicUpdate
 @DynamicInsert
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class FileModel {
     @Getter
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private		long		id;
+    @Column(name = "id")
+    private long id;
 
     @Getter
     @Setter
     @Column(name = "name", nullable = false)
-    private     String      name;
+    private String name;
 
     @Getter
     @Setter
     @Column(name = "path")
-    private     String      path;
+    private String path;
 
     @Getter
     @Setter
-    private     String      type;
+    private String type;
 
     @Getter
     @Setter
-    private     long        size;
+    private long size;
 
     public FileModel(String name, String path, String type, long size) {
         this.name = name;
@@ -44,5 +46,7 @@ public class FileModel {
         this.size = size;
     }
 
-    public FileModel(){}
+    public FileModel() {
+    }
+
 }

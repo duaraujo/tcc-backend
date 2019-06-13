@@ -21,14 +21,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 @Service
-public class FileStorageService {
+public class FileService {
 
     private final Path fileStorageLocation;
     private IFileModel repository;
 
     @Autowired
-    public FileStorageService(FileStorageProperties fileStorageProperties,
-                              IFileModel repository) {
+    public FileService(FileStorageProperties fileStorageProperties,
+                       IFileModel repository) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
         this.repository = repository;

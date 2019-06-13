@@ -1,8 +1,8 @@
 package com.ifam.tccbackend.controller;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ifam.tccbackend.dto.BlockDTO;
 import com.ifam.tccbackend.model.Block;
-import com.ifam.tccbackend.repository.IBlock;
 import com.ifam.tccbackend.service.BlockService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class BlockREST {
     }
 
     @PostMapping
-    public ResponseEntity<Block> save(@RequestBody Block block){
+    public ResponseEntity<Block> save(@RequestBody BlockDTO block){
         return  new ResponseEntity<>(blockService.save(block), HttpStatus.CREATED);
     }
 
@@ -52,6 +52,5 @@ public class BlockREST {
         blockService.save(blockSalvo);
         return ResponseEntity.ok(blockSalvo);
     }
-
 
 }

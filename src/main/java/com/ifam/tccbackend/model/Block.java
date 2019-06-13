@@ -1,5 +1,7 @@
 package com.ifam.tccbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import java.util.List;
 @DynamicUpdate
 @DynamicInsert
 @NoArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Block {
 
     @Getter
@@ -20,34 +23,35 @@ public class Block {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private		long		                id;
+    private long id;
 
     @Getter
     @Setter
-    private 	String						name;
+    private String name;
 
     @Getter
     @Setter
-    private 	int						    floor;
+    private int floor;
 
     @Getter
     @Setter
-    private 	Double						rating;
+    private Double rating;
 
     @Getter
     @Setter
-    private 	String						height;
+    private String height;
 
     @Getter
     @Setter
+    @JsonIgnore
     @OneToMany(mappedBy = "block")
-    private List<Apartment>                 apartments;
+    private List<Apartment> apartments;
 
     @Getter
     @Setter
     @OneToOne
     @JoinColumn(name = "sendImage")
-    private FileModel    					sendImage;
+    private FileModel sendImage;
 
     public Block(String name, int floor, Double rating, String height, FileModel sendImage) {
         this.name = name;
@@ -56,5 +60,7 @@ public class Block {
         this.height = height;
         this.sendImage = sendImage;
     }
+
+
 
 }
