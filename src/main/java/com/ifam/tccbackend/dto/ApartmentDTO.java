@@ -2,6 +2,7 @@ package com.ifam.tccbackend.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ifam.tccbackend.model.Apartment;
 import com.ifam.tccbackend.model.Block;
 import com.ifam.tccbackend.model.FileModel;
 import com.ifam.tccbackend.model.Resident;
@@ -30,21 +31,33 @@ public class ApartmentDTO {
 
     @Getter
     @Setter
-    private List<Resident> residents;
-
-    @Getter
-    @Setter
     @OneToOne
     private FileModel sendImage;
 
-    public ApartmentDTO(long id, String number, Block block, List<Resident> residents, FileModel sendImage) {
-        this.id = id;
+    @Getter
+    @Setter
+    private List<Resident> residents;
+
+    public ApartmentDTO(String number, Block block,FileModel sendImage, List<Resident> residents) {
         this.number = number;
         this.block = block;
-        this.residents = residents;
         this.sendImage = sendImage;
+        this.residents = residents;
     }
 
+    public Apartment getModel() {
+        return new Apartment(number, block, sendImage);
+    }
+
+    public ApartmentDTO getDto(Apartment apartment){
+        ApartmentDTO dto = new ApartmentDTO();
+        dto.setId(apartment.getId());
+        //dto.sendImage(apartment.getSendImage());
+        dto.setNumber(apartment.getNumber());
+        dto.setBlock(apartment.getBlock());
+        dto.setResidents(apartment.getResidents());
+        return dto;
+    }
 
 
 }

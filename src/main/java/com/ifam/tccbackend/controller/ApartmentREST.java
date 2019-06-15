@@ -1,5 +1,6 @@
 package com.ifam.tccbackend.controller;
 
+import com.ifam.tccbackend.dto.ApartmentDTO;
 import com.ifam.tccbackend.model.Apartment;
 import com.ifam.tccbackend.service.ApartmentService;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +21,12 @@ public class ApartmentREST {
     private ApartmentService apartmentService;
 
     @GetMapping
-    public List<Apartment> findAll() {
+    public List<ApartmentDTO> findAllDTO() {
+        return apartmentService.findAllDTO();
+    }
+
+    //@GetMapping
+    public List<Apartment> findAllModel() {
         return apartmentService.findAll();
     }
 

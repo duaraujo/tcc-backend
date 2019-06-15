@@ -15,9 +15,12 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Resident {
+
+    public Resident(){
+        super();
+    }
 
     @Getter
     @Setter
@@ -49,7 +52,7 @@ public class Resident {
     @Getter
     @Setter
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JsonIgnore
+    //@JsonIgnore
     private Apartment apartment;
 
     @Getter
@@ -64,6 +67,15 @@ public class Resident {
         this.phone = phone;
         this.dataNasc = dataNasc;
         this.apartment = apartment;
+        this.gallery = gallery;
+    }
+
+    public Resident(String name, String email, String gender, String phone, Date dataNasc, List<FileModel> gallery) {
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.phone = phone;
+        this.dataNasc = dataNasc;
         this.gallery = gallery;
     }
 }

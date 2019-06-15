@@ -1,6 +1,7 @@
 package com.ifam.tccbackend.service;
 
 
+import com.ifam.tccbackend.dto.ApartmentDTO;
 import com.ifam.tccbackend.model.Apartment;
 import com.ifam.tccbackend.model.Block;
 import com.ifam.tccbackend.repository.IApartment;
@@ -8,6 +9,7 @@ import com.ifam.tccbackend.repository.IBlock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +29,17 @@ public class ApartmentService {
         return iApartment.getApartmentsByBlock(b);
     }
 
-    public List<Apartment> findAll(){ return iApartment.findAll(); }
+    public List<Apartment> findAll(){
+        return iApartment.findAll();
+    }
+
+    public List<ApartmentDTO> findAllDTO(){
+        List<ApartmentDTO> dtos = new ArrayList<>();
+        for (Apartment ap: iApartment.findAll()) {
+            dtos.add(new ApartmentDTO().getDto(ap));
+        }
+        return dtos;
+    }
 
     public Apartment findOne(Long id){ return this.iApartment.getOne(id); }
 

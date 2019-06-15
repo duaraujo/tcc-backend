@@ -1,6 +1,7 @@
 package com.ifam.tccbackend.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,9 +15,9 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Apartment {
+
 
     @Getter
     @Setter
@@ -37,6 +38,7 @@ public class Apartment {
     @Getter
     @Setter
     @OneToMany(mappedBy = "apartment")
+    @JsonIgnore
     private List<Resident> residents;
 
     @Getter
@@ -51,4 +53,14 @@ public class Apartment {
         this.residents = residents;
         this.sendImage = sendImage;
     }
+
+    public Apartment(String number, Block block, FileModel sendImage) {
+        this.number = number;
+        this.block = block;
+        this.sendImage = sendImage;
+    }
+
+    public Apartment(){}
+
+
 }

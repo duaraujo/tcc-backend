@@ -42,7 +42,6 @@ public class FileModelDTO {
         size = entity.getSize();
     }
 
-    @JsonIgnore
     public FileModel modelToDto() {
         FileModel model = new FileModel();
         model.setId(this.id);

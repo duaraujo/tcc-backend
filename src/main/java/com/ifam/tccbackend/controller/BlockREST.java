@@ -31,10 +31,17 @@ public class BlockREST {
         return  new ResponseEntity<>(blockService.save(block), HttpStatus.CREATED);
     }
 
+//    @RequestMapping(method = RequestMethod.GET, path = "/{id}")
+//    public ResponseEntity<Block> findOne(@PathVariable Long id){
+//        Block b = blockService.findOne(id);
+//        return b !=  null ? ResponseEntity.ok(b) : ResponseEntity.notFound().build();
+//    }
+
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<Block> findOne(@PathVariable Long id){
+    public ResponseEntity<BlockDTO> findOne(@PathVariable Long id){
         Block b = blockService.findOne(id);
-        return b !=  null ? ResponseEntity.ok(b) : ResponseEntity.notFound().build();
+        BlockDTO dto = new BlockDTO().getDto(b);
+        return b !=  null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")

@@ -4,6 +4,7 @@ import com.ifam.tccbackend.dto.ResidentDTO;
 import com.ifam.tccbackend.model.Apartment;
 import com.ifam.tccbackend.model.Block;
 import com.ifam.tccbackend.model.Resident;
+import com.ifam.tccbackend.service.ApartmentService;
 import com.ifam.tccbackend.service.ResidentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ public class ResidentREST {
 
     @Autowired
     private ResidentService residentService;
+    @Autowired
+    private ApartmentService apartmentService;
 
     @GetMapping
     public List<Resident> findAll(){
@@ -28,7 +31,9 @@ public class ResidentREST {
     }
 
     @PostMapping
-    public ResponseEntity<Resident> save(@RequestBody ResidentDTO resident){
+    public ResponseEntity<Resident> save(@RequestBody Resident resident){
+        Apartment ap = apartmentService.findOne(resident.getApartment().getId());
+        resident.setApartment(ap);
         return  new ResponseEntity<>(residentService.save(resident), HttpStatus.CREATED);
     }
 

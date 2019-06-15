@@ -38,30 +38,28 @@ public class ResidentDTO {
 
     @Getter
     @Setter
-    private Apartment apartment;
-
-    @Getter
-    @Setter
     private List<FileModel> gallery;
 
-    public ResidentDTO(String name, String email, String gender, String phone, Date dataNasc, Apartment apartment, List<FileModel> gallery) {
+    public ResidentDTO(String name, String email, String gender, String phone, Date dataNasc, List<FileModel> gallery) {
         this.name = name;
         this.email = email;
         this.gender = gender;
         this.phone = phone;
         this.dataNasc = dataNasc;
-        this.apartment = apartment;
         this.gallery = gallery;
     }
 
     public Resident getModel() {
-        return new Resident(name, email, gender, phone, dataNasc, apartment, gallery);
+        return new Resident(name, email, gender, phone, dataNasc, gallery);
     }
 
     public ResidentDTO getDto(Resident resident) {
-        return new ResidentDTO(resident.getName(), resident.getEmail(),
-                resident.getGender(), resident.getPhone(),
-                resident.getDataNasc(), resident.getApartment(), resident.getGallery());
+        return new ResidentDTO(resident.getName(),
+                                resident.getEmail(),
+                                resident.getGender(),
+                                resident.getPhone(),
+                                resident.getDataNasc(),
+                                resident.getGallery());
     }
 
 }

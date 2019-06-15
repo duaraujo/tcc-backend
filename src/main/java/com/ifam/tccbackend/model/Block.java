@@ -14,9 +14,12 @@ import java.util.List;
 @Entity
 @DynamicUpdate
 @DynamicInsert
-@NoArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Block {
+
+    public Block(){
+        super();
+    }
 
     @Getter
     @Setter
@@ -61,6 +64,11 @@ public class Block {
         this.sendImage = sendImage;
     }
 
-
-
+    public Block(String name, int floor, Double rating, String height, List<Apartment> apartments) {
+        this.name = name;
+        this.floor = floor;
+        this.rating = rating;
+        this.height = height;
+        this.apartments = apartments;
+    }
 }
