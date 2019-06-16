@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -57,9 +58,19 @@ public class ApartmentREST {
         return ResponseEntity.ok(apartmentSalvo);
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = "/block/{block}")
+    /*@RequestMapping(method = RequestMethod.GET, path = "/block/{block}")
     public List<Apartment> listApartamentsByBlock(@PathVariable Long block) {
         return apartmentService.listApartamentByBlock(block);
+    }*/
+
+    @RequestMapping(method = RequestMethod.GET, path = "/block/{block}")
+    public List<ApartmentDTO> listApartamentsByBlock(@PathVariable Long block) {
+        List<Apartment> apartments = apartmentService.listApartamentByBlock(block);
+        List<ApartmentDTO> dtos = new ArrayList<>();
+        for(Apartment ap: apartments){
+            dtos.add(new ApartmentDTO().getDto(ap));
+        }
+        return dtos;
     }
 
 }
