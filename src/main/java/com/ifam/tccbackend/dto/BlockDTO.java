@@ -17,6 +17,10 @@ public class BlockDTO {
 
     @Getter
     @Setter
+    private Long id;
+
+    @Getter
+    @Setter
     private String name;
 
     @Getter
@@ -35,7 +39,8 @@ public class BlockDTO {
     @Setter
     private List<Apartment> apartments;
 
-    public BlockDTO(String name, int floor, Double rating, String height, List<Apartment> apartments) {
+    public BlockDTO(Long id, String name, int floor, Double rating, String height, List<Apartment> apartments) {
+        this.id = id;
         this.name = name;
         this.floor = floor;
         this.rating = rating;
@@ -48,8 +53,12 @@ public class BlockDTO {
     }
 
     public BlockDTO getDto(Block block) {
-        return new BlockDTO(block.getName(), block.getFloor(),
-                block.getRating(), block.getHeight(),
+        return new BlockDTO(
+                block.getId(),
+                block.getName(),
+                block.getFloor(),
+                block.getRating(),
+                block.getHeight(),
                 block.getApartments());
     }
 

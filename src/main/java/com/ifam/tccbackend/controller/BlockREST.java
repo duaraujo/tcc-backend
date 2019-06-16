@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.datasource.lookup.BeanFactoryDataSourceLookup;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -22,8 +24,12 @@ public class BlockREST {
     private BlockService blockService;
 
     @GetMapping
-    public List<Block> findAll(){
-        return blockService.findAll();
+    public List<BlockDTO> findAll() {
+        List<BlockDTO> dtos =  new ArrayList<>();
+        for(Block b: blockService.findAll()){
+            dtos.add(new BlockDTO().getDto(b));
+        }
+        return dtos;
     }
 
     @PostMapping
