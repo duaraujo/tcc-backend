@@ -50,18 +50,12 @@ public class Block {
     @OneToMany(mappedBy = "block")
     private List<Apartment> apartments;
 
-    @Getter
-    @Setter
-    @OneToOne
-    @JoinColumn(name = "sendImage")
-    private FileModel sendImage;
 
-    public Block(String name, int floor, Double rating, String height, FileModel sendImage) {
+    public Block(String name, int floor, Double rating, String height) {
         this.name = name;
         this.floor = floor;
         this.rating = rating;
         this.height = height;
-        this.sendImage = sendImage;
     }
 
     public Block(String name, int floor, Double rating, String height, List<Apartment> apartments) {

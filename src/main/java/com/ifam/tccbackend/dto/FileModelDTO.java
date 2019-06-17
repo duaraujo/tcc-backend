@@ -28,18 +28,12 @@ public class FileModelDTO {
     @Setter
     @JsonProperty(value = "type")
     private String type;
-    @Getter
-    @Setter
-    @JsonProperty(value = "size")
-    private long size;
-
 
     public FileModelDTO(FileModel entity) {
         id = entity.getId();
         path = entity.getPath();
         name = entity.getName();
         type = entity.getType();
-        size = entity.getSize();
     }
 
     public FileModel modelToDto() {
@@ -48,7 +42,6 @@ public class FileModelDTO {
         model.setName(this.name);
         model.setType(this.type);
         model.setPath(this.path);
-        model.setSize(this.size);
         return model;
     }
 

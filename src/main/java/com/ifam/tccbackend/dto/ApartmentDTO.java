@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -31,28 +30,21 @@ public class ApartmentDTO {
 
     @Getter
     @Setter
-    @OneToOne
-    private FileModel sendImage;
-
-    @Getter
-    @Setter
     private List<Resident> residents;
 
-    public ApartmentDTO(String number, Block block,FileModel sendImage, List<Resident> residents) {
+    public ApartmentDTO(String number, Block block, List<Resident> residents) {
         this.number = number;
         this.block = block;
-        this.sendImage = sendImage;
         this.residents = residents;
     }
 
     public Apartment getModel() {
-        return new Apartment(number, block, sendImage);
+        return new Apartment(number, block);
     }
 
     public ApartmentDTO getDto(Apartment apartment){
         ApartmentDTO dto = new ApartmentDTO();
         dto.setId(apartment.getId());
-        //dto.sendImage(apartment.getSendImage());
         dto.setNumber(apartment.getNumber());
         dto.setBlock(apartment.getBlock());
         dto.setResidents(apartment.getResidents());

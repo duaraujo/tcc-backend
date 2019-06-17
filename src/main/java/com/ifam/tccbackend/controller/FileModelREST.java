@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,38 +28,41 @@ import java.util.stream.Collectors;
 public class FileModelREST {
 
     private static final Logger logger = LoggerFactory.getLogger(FileModelREST.class);
+    //public static String uploadDirectory = System.getProperty("user.dir")+"/uploads";
 
     @Autowired
     private FileService fileService;
 
-    @PostMapping
-    public FileModelDTO upload(@RequestParam("file") MultipartFile file) {
-        String fileName = fileService.storeFile(file);
+    @PostMapping(path = "/{name}")
+    public FileModelDTO upload(@RequestParam("file") MultipartFile file, @PathVariable("name") String name) {
+        String fileName = fileService.storeFile(file, name);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/")
                 .path(fileName)
                 .toUriString();
-        FileModel fileModel = new FileModel(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+        FileModel fileModel = new FileModel(fileName, fileDownloadUri, file.getContentType());
 
         return fileService.writeFile(fileModel);
     }
 
-    @PostMapping("/uploadMultipleFiles")
-    public List<FileModelDTO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+    @PostMapping("/uploadMultipleFiles/{name}")
+    public List<FileModelDTO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files, @PathVariable("name") String name) {
+
         return Arrays.asList(files)
                 .stream()
-                .map(file -> upload(file))
+                .map(file -> upload(file, name))
                 .collect(Collectors.toList());
     }
 
 
-    @RequestMapping(value = "/{id}", method = {RequestMethod.GET})
-    public ResponseEntity<Resource> downloadFile(@PathVariable Long id, HttpServletRequest request) {
+    @RequestMapping(value = "/{id}/{name}", method = {RequestMethod.GET})
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long id,@PathVariable String name, HttpServletRequest request) {
 
         String fileName = fileService.findOne(id).getName();
         // Load file as Resource
-        Resource resource = fileService.loadFileAsResource(fileName);
+        Resource resource = fileService.loadFileAsResource(fileName, name.substring(0, name.lastIndexOf(' ') == -1 ?  name.length() : name.lastIndexOf(' ')));
+        System.out.println("=== "+resource.getFilename());
 
         // Try to determine file's content type
         String contentType = null;
@@ -76,5 +82,8 @@ public class FileModelREST {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
+
+
 
 }

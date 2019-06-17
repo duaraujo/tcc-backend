@@ -41,15 +41,10 @@ public class FileModel {
     @Setter
     private String type;
 
-    @Getter
-    @Setter
-    private long size;
-
-    public FileModel(String name, String path, String type, long size) {
+    public FileModel(String name, String path, String type) {
         this.name = name;
         this.path = path;
         this.type = type;
-        this.size = size;
     }
 
 }

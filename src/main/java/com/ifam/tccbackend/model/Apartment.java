@@ -41,23 +41,15 @@ public class Apartment {
     @JsonIgnore
     private List<Resident> residents;
 
-    @Getter
-    @Setter
-    @OneToOne
-    @JoinColumn(name = "sendImage")
-    private FileModel sendImage;
-
-    public Apartment(String number, Block block, List<Resident> residents, FileModel sendImage) {
+    public Apartment(String number, Block block, List<Resident> residents) {
         this.number = number;
         this.block = block;
         this.residents = residents;
-        this.sendImage = sendImage;
     }
 
-    public Apartment(String number, Block block, FileModel sendImage) {
+    public Apartment(String number, Block block) {
         this.number = number;
         this.block = block;
-        this.sendImage = sendImage;
     }
 
     public Apartment(){}

@@ -1,6 +1,8 @@
 package com.ifam.tccbackend.controller;
 
 import com.ifam.tccbackend.dto.ResidentDTO;
+import com.ifam.tccbackend.kafka.OrderConsumer;
+import com.ifam.tccbackend.kafka.OrderProducer;
 import com.ifam.tccbackend.model.Apartment;
 import com.ifam.tccbackend.model.Block;
 import com.ifam.tccbackend.model.Resident;
@@ -24,16 +26,22 @@ public class ResidentREST {
     private ResidentService residentService;
     @Autowired
     private ApartmentService apartmentService;
+    @Autowired
+    private OrderProducer producer;
+    @Autowired
+    private OrderConsumer consumer;
 
     @GetMapping
     public List<Resident> findAll(){
         return residentService.findAll();
     }
 
+
     @PostMapping
     public ResponseEntity<Resident> save(@RequestBody Resident resident){
         Apartment ap = apartmentService.findOne(resident.getApartment().getId());
         resident.setApartment(ap);
+        //producer.send("new register");
         return  new ResponseEntity<>(residentService.save(resident), HttpStatus.CREATED);
     }
 
